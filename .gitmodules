@@ -1,3 +1,30 @@
 [submodule "configs/zsh/zgen"]
 	path = configs/zsh/zgen
 	url = https://github.com/tarjoilija/zgen.git
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-commentary"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/onedarkpro"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/onedarkpro
+	url = http://github.com/olimorris/onedarkpro.nvim
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-user"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-user
+	url = https://github.com/kana/vim-textobj-user
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/nvim-lspconfig"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-pastedtext"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-pastedtext
+	url = https://github.com/saaguero/vim-textobj-pastedtext
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-function"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-function
+	url = https://github.com/kana/vim-textobj-function
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-function-javascript"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-function-javascript
+	url = https://github.com/thinca/vim-textobj-function-javascript
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-python"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-python
+	url = https://github.com/bps/vim-textobj-python
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-function-php"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-function-php
+	url = https://github.com/kentaro/vim-textobj-function-php

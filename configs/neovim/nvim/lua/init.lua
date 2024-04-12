@@ -4,9 +4,9 @@
 -- https://github.com/olimorris/onedarkpro.nvim/tree/main
 --
 -- Customize colors a little bit, this uses Lsp semantic highlights. 
--- Use :Inspect when cursor is over a word to see which highlight group it 
--- uses then, you can set the color of that highlight group here. The available
--- colors in the theme are listed
+-- Use :Inspect when cursor is over a word to see which highlight 
+-- group it uses then, you can set the color of that highlight 
+-- group here. The available colors in the theme are listed
 -- [here](https://github.com/olimorris/onedarkpro.nvim/blob/main/lua/onedarkpro/themes/onedark_dark.lua)
 
 local color_helper = require("onedarkpro.helpers")
@@ -21,8 +21,6 @@ require("onedarkpro").setup({
         Function = {fg = "${red}"},
     },
     colors = {
-        -- bg = "#212121",
-        -- bg = "#101010",
         -- bg = "#0C0C0C",
         bg = "#151515",
     },
@@ -34,48 +32,6 @@ vim.cmd("colorscheme onedark_dark")
 
 --------------------------------------------------------------------
 
-
---  Color theme monokai pro
---  https://github.com/loctvl842/monokai-pro.nvim
---
--- Use :Inspect when cursor is over a word to see which highlight group it 
--- uses then, you can set the color of that highlight group here. The available
--- colors in the theme are listed
--- [here](https://github.com/olimorris/onedarkpro.nvim/blob/main/lua/onedarkpro/themes/onedark_dark.lua)
-
--- require("monokai-pro").setup({
---     transparent_background = true,
---     override = function(c)
---         return {
---             Folded = {fg = c.base.dimmed3, bg="none"},
---             Type = {fg = c.base.blue}, 
---             Identifier = {fg = c.base.dimmed1 }, 
---             ["@lsp.type.parameter"] = { fg = c.base.dimmed1 },
---             ["@lsp.typemod.parameter.declaration"] = { fg = c.base.dimmed1 },
---             ["@lsp.typemod.variable.readonly.cpp"] = { fg = c.base.dimmed1 },
---             ["@lsp.type.property.cpp"] = { fg = c.base.white },
---         }
---     end
--- })
--- vim.cmd("colorscheme monokai-pro-classic")
-
-
---------------------------------------------------------------------
-
--- Null LS is an implementation of some LSP features that are not
--- properly implemented in some  language servers. It fills some holes.
-
--- yay -S python-black
-
-local null_ls = require("null-ls")
-
-null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.black,  -- python formater
-    },
-})
-
------------------------------------------------------------
 
 ---- LSP Config is a plugin to easily configure the built-in LSP client in neovim. 
 ---- Here are some configs and mappings.

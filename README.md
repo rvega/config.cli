@@ -1,7 +1,8 @@
 # TODO
 
-[] Trash and rm
-[] Clipboard
+[] Language servers.
+[] Trash and rm.
+[] Clipboard.
 
 
 

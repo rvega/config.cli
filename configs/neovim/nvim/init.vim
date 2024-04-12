@@ -1,97 +1,80 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Plugin Manager Minpac
+" Load plugins manually
 " 
 
+
+" See lua/init.lua script. This is where the integration with language
+" servers is configured. (semantic completions, fixers, linters, etc.)
+packadd nvim-lspconfig
+
+
+
 " To install/update plugins :call InstallPlugins() 
-function! InstallPlugins()
-  packadd minpac
-  call minpac#init()
-  call minpac#add('k-takata/minpac', {'type': 'opt'})
+" function! InstallPlugins()
+"   packadd minpac
+"   call minpac#init()
+"   call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-  " Allows for user defined text objects
-  " See here if more text objects are needed
-  " https://github.com/kana/vim-textobj-user/wiki
-  call minpac#add('kana/vim-textobj-user') 
 
-  " gb for text object last pasted text.
-  " Nice with comments or indents, e.g. indent pasted text "=gb"
-  call minpac#add('saaguero/vim-textobj-pastedtext') 
 
-  " f for functions in C, Java and Vimscript. May be extended for more languages.
-  call minpac#add('kana/vim-textobj-function')
-  call minpac#add('thinca/vim-textobj-function-javascript') " Adds JS support
-  call minpac#add('bps/vim-textobj-python')                 " Adds python support
-  call minpac#add('kentaro/vim-textobj-function-php')       " Adds php
 
-  " Better paragraphs. p for paragraphs, { and } for motions.
-  call minpac#add('pianohacker/vim-textobj-indented-paragraph')
+"   call minpac#add('mbbill/undotree')
 
-  call minpac#add('mbbill/undotree')
+"   " call minpac#add('junegunn/fzf', {'do': './install --bin'})
+"   call minpac#add('junegunn/fzf')
+"   call minpac#add('junegunn/fzf.vim')
 
-  " call minpac#add('junegunn/fzf', {'do': './install --bin'})
-  call minpac#add('junegunn/fzf')
-  call minpac#add('junegunn/fzf.vim')
+"   call minpac#add('derekwyatt/vim-fswitch')
 
-  call minpac#add('derekwyatt/vim-fswitch')
+"   call minpac#add('lervag/wiki.vim')
 
-  call minpac#add('lervag/wiki.vim')
+"   " <c-s> to toggle to-do items in bulleted lists.
+"   call minpac#add('lervag/lists.vim')
 
-  " <c-s> to toggle to-do items in bulleted lists.
-  call minpac#add('lervag/lists.vim')
+"   call minpac#add('SirVer/ultisnips')
+"   call minpac#add('honza/vim-snippets')
 
-  call minpac#add('SirVer/ultisnips')
-  call minpac#add('honza/vim-snippets')
 
-  " See lua/init.lua script. This is where the integration with language
-  " servers is configured. (semantic completions, fixers, linters, etc.)
-  call minpac#add('nvim-lua/plenary.nvim')
-  call minpac#add('jose-elias-alvarez/null-ls.nvim')
-  call minpac#add('neovim/nvim-lspconfig')
-  " call minpac#add('ray-x/guihua.lua', {'do': 'cd lua/fzy && make' })
-  " call minpac#add('ray-x/navigator.lua')
-  " call minpac#add('nvim-treesitter/nvim-treesitter')
+"   call minpac#add('tpope/vim-commentary')
 
-  call minpac#add('tpope/vim-commentary')
+"   call minpac#add('plasticboy/vim-markdown')
+  " call minpac#add('lambdalisue/suda.vim')
+"   call minpac#add('christoomey/vim-tmux-navigator')
 
-  call minpac#add('plasticboy/vim-markdown')
-  call minpac#add('lambdalisue/suda.vim')
-  call minpac#add('christoomey/vim-tmux-navigator')
+"   " Better syntax highlighting. Look for other languages here
+"   " https://github.com/sheerun/vim-polyglot
+"   call minpac#add('justinmk/vim-syntax-extra') " For C
+"   call minpac#add('vim-jp/vim-cpp') " CPP
+"   call minpac#add('jelera/vim-javascript-syntax') " Javascript
+"   call minpac#add('amadeus/vim-xml') " XML
+"   call minpac#add('StanAngeloff/php.vim') "php
 
-  " Better syntax highlighting. Look for other languages here
-  " https://github.com/sheerun/vim-polyglot
-  call minpac#add('justinmk/vim-syntax-extra') " For C
-  call minpac#add('vim-jp/vim-cpp') " CPP
-  call minpac#add('jelera/vim-javascript-syntax') " Javascript
-  call minpac#add('amadeus/vim-xml') " XML
-  call minpac#add('StanAngeloff/php.vim') "php
+"   " Color schemes.
+"   call minpac#add('olimorris/onedarkpro.nvim')
 
-  " Color schemes.
-  " call minpac#add('loctvl842/monokai-pro.nvim') 
-  call minpac#add('olimorris/onedarkpro.nvim')
+"   " Debug client, I use it for php
+"   " call minpac#add('vim-vdebug/vdebug', {'type': 'opt'}) 
 
-  " Debug client, I use it for php
-  " call minpac#add('vim-vdebug/vdebug', {'type': 'opt'}) 
+"   call minpac#add('moll/vim-bbye')
 
-  call minpac#add('moll/vim-bbye')
+"   " Better spelling corrector
+"   call minpac#add('kamykn/spelunker.vim')
 
-  " Better spelling corrector
-  call minpac#add('kamykn/spelunker.vim')
+"   " Adds actions for adding surronds: ys, deleting: ds, changing: ds, etc.
+"   call minpac#add('tpope/vim-surround')
+"   call minpac#add('tpope/vim-repeat')
 
-  " Adds actions for adding surronds: ys, deleting: ds, changing: ds, etc.
-  call minpac#add('tpope/vim-surround')
-  call minpac#add('tpope/vim-repeat')
+"   " Compile from within vim using cmake. 
+"   call minpac#add('ilyachur/cmake4vim')
 
-  " Compile from within vim using cmake. 
-  call minpac#add('ilyachur/cmake4vim')
+"   " https://github.com/untitled-ai/jupyter_ascending.vim
+"   " call minpac#add('untitled-ai/jupyter_ascending.vim')
 
-  " https://github.com/untitled-ai/jupyter_ascending.vim
-  " call minpac#add('untitled-ai/jupyter_ascending.vim')
-
-  call minpac#add('goerz/jupytext.vim')
+"   call minpac#add('goerz/jupytext.vim')
   
-  call minpac#update()
-  call minpac#clean()
-endfunction
+"   call minpac#update()
+"   call minpac#clean()
+" endfunction
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -288,12 +271,26 @@ let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Custom text objects
-" 
+" Text objects
+ 
+" Allows for user defined text objects. See here if more text objects 
+" are needed https://github.com/kana/vim-textobj-user/wiki
+packadd vim-textobj-user
 
-" call minpac#add('libclang-vim/libclang-vim')
-" call minpac#add('libclang-vim/vim-textobj-function-clang')        " C++ (not
-" working, could not figure out how to add mappings.
+" gb for text object last pasted text. Nice with comments or indents, 
+" e.g: indent pasted text "=gb"
+packadd vim-textobj-pastedtext
+
+" f for functions in C, Java and Vimscript. Can be extended for 
+" more languages.
+packadd vim-textobj-function
+packadd vim-textobj-function-javascript  " Adds JS support
+packadd vim-textobj-python               " Adds python support
+packadd vim-textobj-function-php         " Adds php
+
+" Better paragraphs. p for paragraphs, { and } for motions.
+"packadd vim-textobj-indented-paragraph
+
 
 
 " I changed this in pack/minpac/start/vim-textobj-indented-paragraph/plugin/indented-paragraph.vim 
@@ -392,7 +389,8 @@ au! BufEnter *.html let b:fswitchdst = 'ts' | let b:fswitchlocs = './'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Compile using cmake
 
-let g:cmake_build_dir="Build/Debug"
+" let g:cmake_build_dir="Build/Debug"
+let g:cmake_build_dir="build"
 let g:cmake_project_generator="Ninja"
 " g:cmake_build_executor_height=5
 " map <leader>b :CMakeBuild<cr>:copen<cr>
@@ -463,14 +461,7 @@ augroup END
 " e.g: "gcp" toggles comments for a paragraph
 " In visual mode, select and then do "gc"
 
-" Comment current line or selection
-" nmap <leader>c gcc
-" vmap <leader>c gc
-
-" augroup Apache
-"    autocmd!
-"    autocmd FileType apache setlocal commentstring=#\ %s
-" augroup END
+packadd vim-commentary
 
 augroup c_ftft
    autocmd!
@@ -543,59 +534,14 @@ let @p = '^v%:s/\t//gv%kj:s/^/ * /gxwlh%XXv%>fdd2w=ip'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
 " 
-" I moved color stuff to init.lua. Below is the config for 
-" the base16-monokai theme that I've used before
+" More color config is in init.lua. 
 
-" colorscheme base16-monokai
+packadd onedarkpro
+
 set termguicolors
 syntax enable
 set background=dark
 
-"""""
-" For color scheme base16-monokai:
-
-" " Change colors of the leftmost column (left of linenumbers)
-" highlight SignColumn ctermfg=240 ctermbg=0
-" highlight ShowmarksHLl ctermfg=240 ctermbg=0
-" highlight ShowmarksHLu ctermfg=240 ctermbg=0
-" highlight ShowmarksHLo ctermfg=240 ctermbg=0
-" highlight ShowmarksHLm ctermfg=240 ctermbg=0
-
-" highlight SignColumn guifg=240 guibg=0
-" highlight ShowmarksHLl guifg=240 guibg=0
-" highlight ShowmarksHLu guifg=240 guibg=0
-" highlight ShowmarksHLo guifg=240 guibg=0
-" highlight ShowmarksHLm guifg=240 guibg=0
-
-" " Change colors of folds
-" highlight Folded ctermfg=8 ctermbg=0
-" highlight Folded guifg=#75715e guibg=#202020
-
-" " Change color of line numbers
-" highlight LineNr ctermfg=8 ctermbg=0
-" highlight LineNr guifg=#75715e guibg=0
-
-" " Change color of comments
-" highlight Comment ctermfg=green
-" highlight Comment guifg=green
-
-" " Show a colored column
-" set colorcolumn=68
-" highlight ColorColumn ctermbg=0
-
-" F10 to show syntax group of current word. Useful when setting up colors or highlighting.
-" map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-" \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-" \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-" Change colors of folds
-" highlight Folded ctermfg=8 ctermbg=0
-" highlight Folded guifg=#75715e guibg=#252525
-
-" F10 to show syntax group of current word. Useful when setting up colors or highlighting.
-" map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-" \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-" \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PHP Debugger
