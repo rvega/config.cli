@@ -9,13 +9,15 @@ This is my command line "IDE". It's zsh, tmux and nvim with custom configs.This 
 1. Install docker
 
 1. Run this:
-   `cd scripts`
-   `./docker_install.sh` 
-   `./docker_start.sh`   # Will start zsh in a docker container
-   `cd Config/scripts`
-   `./install.sh`
-    `exit`
-   `./docker_start.sh`
+   ```
+   cd scripts
+   ./docker_install.sh 
+   ./docker_start.sh   # Will start zsh in a docker container
+   cd Config/scripts
+   ./install.sh
+   exit
+   ./docker_start.sh
+   ```
 
 ### Uninstall 
 
@@ -29,17 +31,21 @@ Delete the rvg_devel_img image and the rvg_devel container, or (dangerous) run `
 1. Clone this repo to /home/rvg/Config
 
 1. If no normal user was created during install, run the following, log out, log as rvg user.
-   `cd scripts`
-   `./create_user.sh`
+   ```
+   cd scripts
+   ./create_user.sh
+   ```
 
 1. Run
-   `cd scripts`
-   `./istall.sh`
+   ```
+   cd scripts
+   ./istall.sh
+   ```
 
 
 # TODO
 
-[] Clipboard integration.
+* [ ] Clipboard integration.
 
 
 
