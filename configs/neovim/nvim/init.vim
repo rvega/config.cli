@@ -101,6 +101,10 @@ noremap! fd <esc>:noh<cr>
 " noremap df <esc>:noh<cr>
 " noremap! df <esc>:noh<cr>
 
+" I'm using the å character as a workaround for the ctrl+w shortcut in
+" windows.
+noremap! å <c-w>
+
 " Ctrl backspace deletes one word in insert mode
 " noremap! <c-backspace> bbb
 " noremap! <backspace> aaa

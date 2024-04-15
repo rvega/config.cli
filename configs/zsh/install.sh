@@ -13,4 +13,3 @@ ln -sf "$(which fdfind)" ~/.local/bin/fd
 rm -f ~/Config/configs/zsh/zgen/init.zsh
 ln -sf ~/Config/configs/zsh/zgen ~/.zgen 2>/dev/null
 ln -sf ~/Config/configs/zsh/zshrc ~/.zshrc 2>/dev/null
-
