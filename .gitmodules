@@ -28,3 +28,74 @@
 [submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-function-php"]
 	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-function-php
 	url = https://github.com/kentaro/vim-textobj-function-php
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-indented-paragraph"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-indented-paragraph
+	url = git@github.com:rvega/vim-textobj-indented-paragraph.git
+[submodule "vim-textobj-indented-paragraph"]
+	url = git@github.com:rvega/vim-textobj-indented-paragraph.git
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/undotree"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/undotree
+	url = https://github.com/mbbill/undotree
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/fzf"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/fzf
+	url = https://github.com/junegunn/fzf
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/fzf.vim"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-fswitch"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-fswitch
+	url = https://github.com/derekwyatt/vim-fswitch
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/wiki.vim"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/wiki.vim
+	url = https://github.com/lervag/wiki.vim
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/lists.vim"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/lists.vim
+	url = https://github.com/lervag/lists.vim
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/ultisnips"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/ultisnips
+	url = https://github.com/SirVer/ultisnips
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-snippets"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-snippets
+	url = https://github.com/honza/vim-snippets
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-markdown"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-markdown
+	url = https://github.com/plasticboy/vim-markdown
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/suda.vim"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/suda.vim
+	url = https://github.com/lambdalisue/suda.vim
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-tmux-navigator"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-syntax-extra"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-syntax-extra
+	url = https://github.com/justinmk/vim-syntax-extra
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-cpp"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-cpp
+	url = https://github.com/vim-jp/vim-cpp
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-javascript-syntax"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-javascript-syntax
+	url = https://github.com/jelera/vim-javascript-syntax
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-xml"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-xml
+	url = https://github.com/amadeus/vim-xml
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/php.vim"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/php.vim
+	url = https://github.com/StanAngeloff/php.vim
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vdebug"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vdebug
+	url = https://github.com/vim-vdebug/vdebug
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-bbye"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-bbye
+	url = https://github.com/moll/vim-bbye
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-surround"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-repeat"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-repeat
+	url = https://github.com/tpope/vim-repeat
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/cmake4vim"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/cmake4vim
+	url = https://github.com/ilyachur/cmake4vim
+[submodule "vendor/fzf"]
+	path = vendor/fzf
+	url = https://github.com/junegunn/fzf.git

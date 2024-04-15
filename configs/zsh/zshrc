@@ -1,5 +1,5 @@
 # Load zgen
-source "${HOME}/Config/zsh/zgen/zgen.zsh"
+source "${HOME}/Config/configs/zsh/zgen/zgen.zsh"
 
 # check if there's no init.zsh script
 if ! zgen saved; then
@@ -14,7 +14,7 @@ if ! zgen saved; then
     # zgen load ytakahashi/igit
 
     # theme
-    zgen load ${HOME}/Config/zsh/rafa.zsh-theme
+    zgen load ${HOME}/Config/configs/zsh/rafa.zsh-theme
 
     # save all to init script
     zgen save
@@ -81,7 +81,7 @@ alias lf="tmux-load ~/Config/lf/tmux-lf.json"
 alias cmake_ninja="cmake -G Ninja -DCMAKE_BUILD_TYPE=debug"
 
 # send to trash instead of rm (need to install trash-cli from aur)
-alias rm=trash
+alias rm="echo \"Don't use rm, use trash instead.\""
 
 # Force ninja to output colors
 export CLICOLOR_FORCE=1
@@ -152,11 +152,8 @@ alias tt='tree -L 3 -C'
 alias ttt='tree -C | less' 
 
 # Vim open on same window
-# alias nvim='~/Config/neovim/open-with-neovim.sh' 
-# alias vim='~/Config/neovim/open-with-neovim.sh' 
-# alias vi='~/Config/neovim/open-with-neovim.sh'
 alias vim='echo "Just type v instead of vim"'
-alias v='~/Config/neovim/open-with-neovim.sh'
+alias v='~/Config/configs/neovim/open-with-neovim.sh'
 alias vv='=nvim'
 
 # Use vim for everything

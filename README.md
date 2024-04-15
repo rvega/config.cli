@@ -1,37 +1,45 @@
+# Command line devel environment based on Ubuntu 24.04 
+
+This is my command line "IDE". It's zsh, tmux and nvim with custom configs.This is meant to be ran on a command-line only environment such as a docker container, WSL2 on windows, or a Linux install (virtual or phisical machine).
+
+## Install
+
+### On docker.
+
+1. Install docker
+
+1. Run this:
+   `cd scripts`
+   `./docker_install.sh` 
+   `./docker_start.sh`   # Will start zsh in a docker container
+   `cd Config/scripts`
+   `./install.sh`
+    `exit`
+   `./docker_start.sh`
+
+### Uninstall 
+
+Delete the rvg_devel_img image and the rvg_devel container, or (dangerous) run `cd scripts && ./docker_uninstall.sh` 
+
+
+## On Ubuntu (WSL2, virtual machine, or physical machine).
+
+1. Install ubuntu 24.04 and make sure you can login as root.
+
+1. Clone this repo to /home/rvg/Config
+
+1. If no normal user was created during install, run the following, log out, log as rvg user.
+   `cd scripts`
+   `./create_user.sh`
+
+1. Run
+   `cd scripts`
+   `./istall.sh`
+
+
 # TODO
 
-[] Language servers.
-[] Trash and rm.
-[] Clipboard.
+[] Clipboard integration.
 
 
 
-# Install dependencies in MacOS.
-
-brew install homebrew/cask/docker
-
-
-# Create the image.
-
-docker build . -t rvega_devel_img
-
-
-# Run a container (instance of an image).
-
-docker run -dit --name rvega_devel --user rvg -p 80:80 -v /Users/Rafa/Projects:/home/rvg/Projects rvega_devel_img
-
-# Connect to terminal
-
-docker start rvega_devel
-docker exec -it rvega_devel --user rvg /bin/bash
-
-
-
-
-
-<!-- `docker pull archlinux:latest`  // Get an image from the docker repos. -->
-<!-- `docker run -dit --name my_arch_container -p 80:80 -v [PATH IN HOST MACHINE]:[PATH IN GUEST CONTAINER] archlinux:latest`  // Create a container by running the image. --> 
-<!-- `docker start my_arch_container`  // Run the container. -->
-<!-- `docker exec -it my_arch_container /bin/bash` //Run a terminal in the container. -->
-
-<!-- If you want to start from a custom image, you need to create a Dockerfile. --> 

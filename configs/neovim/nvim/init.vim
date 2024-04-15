@@ -1,81 +1,15 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Load plugins manually
-" 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Load some plugins manually
+" 
 
 " See lua/init.lua script. This is where the integration with language
 " servers is configured. (semantic completions, fixers, linters, etc.)
 packadd nvim-lspconfig
 
-
-
-" To install/update plugins :call InstallPlugins() 
-" function! InstallPlugins()
-"   packadd minpac
-"   call minpac#init()
-"   call minpac#add('k-takata/minpac', {'type': 'opt'})
-
-
-
-
-"   call minpac#add('mbbill/undotree')
-
-"   " call minpac#add('junegunn/fzf', {'do': './install --bin'})
-"   call minpac#add('junegunn/fzf')
-"   call minpac#add('junegunn/fzf.vim')
-
-"   call minpac#add('derekwyatt/vim-fswitch')
-
-"   call minpac#add('lervag/wiki.vim')
-
-"   " <c-s> to toggle to-do items in bulleted lists.
-"   call minpac#add('lervag/lists.vim')
-
-"   call minpac#add('SirVer/ultisnips')
-"   call minpac#add('honza/vim-snippets')
-
-
-"   call minpac#add('tpope/vim-commentary')
-
-"   call minpac#add('plasticboy/vim-markdown')
-  " call minpac#add('lambdalisue/suda.vim')
-"   call minpac#add('christoomey/vim-tmux-navigator')
-
-"   " Better syntax highlighting. Look for other languages here
-"   " https://github.com/sheerun/vim-polyglot
-"   call minpac#add('justinmk/vim-syntax-extra') " For C
-"   call minpac#add('vim-jp/vim-cpp') " CPP
-"   call minpac#add('jelera/vim-javascript-syntax') " Javascript
-"   call minpac#add('amadeus/vim-xml') " XML
-"   call minpac#add('StanAngeloff/php.vim') "php
-
-"   " Color schemes.
-"   call minpac#add('olimorris/onedarkpro.nvim')
-
-"   " Debug client, I use it for php
-"   " call minpac#add('vim-vdebug/vdebug', {'type': 'opt'}) 
-
-"   call minpac#add('moll/vim-bbye')
-
-"   " Better spelling corrector
-"   call minpac#add('kamykn/spelunker.vim')
-
-"   " Adds actions for adding surronds: ys, deleting: ds, changing: ds, etc.
-"   call minpac#add('tpope/vim-surround')
-"   call minpac#add('tpope/vim-repeat')
-
-"   " Compile from within vim using cmake. 
-"   call minpac#add('ilyachur/cmake4vim')
-
-"   " https://github.com/untitled-ai/jupyter_ascending.vim
-"   " call minpac#add('untitled-ai/jupyter_ascending.vim')
-
-"   call minpac#add('goerz/jupytext.vim')
-  
-"   call minpac#update()
-"   call minpac#clean()
-" endfunction
-
+" Adds actions for adding surronds: ys, deleting: ds, changing: ds, etc.
+packadd vim-surround
+packadd vim-repeat
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config
@@ -131,6 +65,19 @@ augroup php_ft
   autocmd FileType php :setlocal tabstop=4
 augroup END
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Syntax Highlighting.
+" 
+
+" Better syntax highlighting. Look for other languages here
+" https://github.com/sheerun/vim-polyglot
+
+packadd vim-syntax-extra       " For C
+packadd vim-cpp                " CPP
+packadd vim-javascript-syntax  " Javascript
+packadd vim-xml                " XML
+packadd php.vim                " php
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
@@ -177,6 +124,8 @@ inoremap [<space> [ ]<esc>hi
 " vnoremap : q:i
 
 " Navigate open buffers
+packadd vim-bbye  " :Bdelete is better than :bdelete 
+                  "  See https://github.com/moll/vim-bbye
 nnoremap <leader>n :bn<cr>
 nnoremap <leader>N :bp<cr>
 nnoremap <leader>l :Buffers<cr>
@@ -266,6 +215,10 @@ set completeopt=menu,longest
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Snippets. Ultisnips
 " 
+
+packadd ultisnips
+packadd vim-snippets
+
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-p>"
@@ -289,49 +242,41 @@ packadd vim-textobj-python               " Adds python support
 packadd vim-textobj-function-php         " Adds php
 
 " Better paragraphs. p for paragraphs, { and } for motions.
-"packadd vim-textobj-indented-paragraph
+" Note that I'm using my fork of this plugin. I did that 
+" because it's the only way to change mappings.
+packadd vim-textobj-indented-paragraph
 
 
 
-" I changed this in pack/minpac/start/vim-textobj-indented-paragraph/plugin/indented-paragraph.vim 
-" to get the normal paragraph mappings instead of the unfamiliar ones defined in the plugin.
-"
-" call textobj#user#plugin('indentedparagraph', {
-" \   '-': {
-" \     'select-a-function': 'indented_paragraph#SelectA',
-" \     'select-a': 'ap',
-" \     'select-i-function': 'indented_paragraph#SelectI',
-" \     'select-i': 'ip',
-" \     'move-n-function': 'indented_paragraph#MoveN',
-" \     'move-n': '}',
-" \     'move-p-function': 'indented_paragraph#MoveP',
-" \     'move-p': '{',
-" \   },
-" \ })
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Undo history
 "
+
+packadd undotree
+
 set undofile
 autocmd BufWritePre /tmp/* setlocal noundofile
 nnoremap <leader>z :UndotreeToggle<cr>
 
-"" Another option is vim-undo (commented out below). Better search in history of file but not working
+"" Another option is vim-undo (commented out below). 
+"" It has better search in history of file but not working 
 "" last time I checked.
-
-" call minpac#add('simnalamburt/vim-mundo')
-" autocmd BufWritePre /tmp/* setlocal noundofile
-" nnoremap <leader>z :MundoToggle<cr>
-" let g:mundo_prefer_python3 = 1
-" let g:mundo_auto_preview_delay = 1000
+""
+""   call minpac#add('simnalamburt/vim-mundo')
+""   autocmd BufWritePre /tmp/* setlocal noundofile
+""   nnoremap <leader>z :MundoToggle<cr>
+""   let g:mundo_prefer_python3 = 1
+""   let g:mundo_auto_preview_delay = 1000
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fuzzy Finder
-" 
-
-" TODO: Explore! There are a lot of interesting commands in this plugin. 
-" https://github.com/junegunn/fzf.vim
+"
+" Requires the fzf binary to be available in PATH. See zsh config.
+"
+" TODO: Explore! There are a lot of interesting commands in this 
+" plugin. https://github.com/junegunn/fzf.vim
 "
 " Use these commands!!!
 " <leader>t or :GFiles for opening files in repo. see below.
@@ -339,6 +284,9 @@ nnoremap <leader>z :UndotreeToggle<cr>
 " <leader>r or :Rg to search in whole project. Respects ignore files
 " :Tags
 " :Snippets
+
+packadd fzf
+packadd fzf.vim
 
 " nmap <leader><tab> <plug>(fzf-maps-n)
 " xmap <leader><tab> <plug>(fzf-maps-x)
@@ -364,22 +312,15 @@ nmap <leader>r :RipGrep
 command! -bang -nargs=* RipGrepAll call fzf#vim#grep("rg --no-ignore --glob !tags --glob !.git --glob !.cache --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
 nmap <leader>R :RipGrepAll 
 
-"""""
-" This is what I had before:
-"     nmap <leader>t :GFiles<cr> 
-"     nmap <leader>T :Files<cr>
-"     " This is what is executed for :Files command
-"     let $FZF_DEFAULT_COMMAND = 'rg --files --follow --hidden --no-ignore --color=never 2> /dev/null'
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Jump between c and h (companion) files.
 " 
 
+packadd vim-fswitch
 nnoremap <leader>h :call FSwitch('%', '')<cr>
 
 "autocmd BufEnter *.c let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|'
-
 
 " ts and html files, useful for angular projects
 au! BufEnter *.ts let b:fswitchdst = 'html' | let b:fswitchlocs = './'
@@ -388,6 +329,8 @@ au! BufEnter *.html let b:fswitchdst = 'ts' | let b:fswitchlocs = './'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Compile using cmake
+
+packadd cmake4vim
 
 " let g:cmake_build_dir="Build/Debug"
 let g:cmake_build_dir="build"
@@ -413,23 +356,25 @@ function! WordProcessorMode()
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"" WIKI
+"" WIKI and markdown files
 "" Wiki.vim keeps to-do lists, notes, etc.
 "" <leader>ww
 
-let g:wiki_root = '/Users/Rafa/wiki'
-" let g:wiki_link_target_type = 'md'
-let g:wiki_filetypes = ['wiki']
+packadd vim-markdown
+packadd wiki.vim
+packadd lists.vim
+
+let g:wiki_root = '/home/rvg/wiki'
+let g:wiki_link_target_type = 'md'
+let g:wiki_filetypes = ['md']
 
 " Enable lists in markdown files.
 let g:lists_filetypes = ['markdown', 'md', 'wiki']
-let g:wiki_mappings_global = {
-      \ '<plug>(wiki-list-toggle)' : '<leader>x',
-\}
 
-function! FoldLevel99(timer)
-  setlocal foldlevel=99
-endfunction
+" <leader>X to toggle to-do items in bulleted lists. <c-s> is default
+let g:lists_maps_default_override = {
+      \ '<plug>(lists-toggle)' : '<leader>X',
+\}
 
 function! MarkdownConfig()
   call WordProcessorMode()
@@ -437,7 +382,7 @@ function! MarkdownConfig()
   setlocal shiftwidth=3
   setlocal conceallevel=1
   inoremap <buffer> [<space> * [ ]<space>
-  " autocmd BufEnter *.md :call timer_start(100, 'FoldLevel99', {'repeat':1}) 
+  :ListsEnable
 endfunction
 
 augroup markdfown_ft
@@ -446,13 +391,6 @@ augroup markdfown_ft
   autocmd BufEnter *.wiki :call MarkdownConfig()
   autocmd BufEnter *.wiki :setlocal filetype=markdown
 augroup END
-
-" Open file links with xdg-open
-" let g:wiki_file_open = 'WikiFileOpen'
-" function! WikiFileOpen(...) abort dict
-"   silent execute '!xdg-open' fnameescape(self.path) '&'
-"   return 1
-" endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Toggle Comments.
@@ -480,9 +418,12 @@ augroup js_ftft
    autocmd FileType js :setlocal commentstring=//\ %s
 augroup END
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ask for sudo password
 " 
+
+packadd suda.vim
 "cnoremap ee e suda://%
 cnoremap ww w suda://%
 
@@ -490,6 +431,9 @@ cnoremap ww w suda://%
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Integration with tmux
 " 
+
+packadd vim-tmux-navigator
+
 let g:tmux_navigator_no_mappings = 2
 nnoremap <silent> <c-a>h :TmuxNavigateLeft<cr>
 nnoremap <silent> <c-a>j :TmuxNavigateDown<cr>
@@ -548,6 +492,8 @@ set background=dark
 " :packadd vdebug to enable the plugin and then <f5> to listen for
 " connections. You'll need to change mappings below for projects that use
 " remote debugger (docker containers for example).
+
+" packadd vdebug
 
 let g:vdebug_options = {
 \   'path_maps': {
