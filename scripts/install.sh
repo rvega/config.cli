@@ -12,3 +12,6 @@ cd ../tmux
 cd ../neovim
 ./install.sh
 
+cd ../git
+./install.sh
+
