@@ -43,11 +43,12 @@
   rebase = false
 
 [diff]
-     tool = meld
-    ; tool = vimdiff
+    tool = meld
+    ;tool = vimdiff
 
 [difftool]
     prompt = false
 
 [difftool "meld"]
-    cmd = meld "$LOCAL" "$REMOTE"
+    cmd = /mnt/c/Program\\ Files/Meld/Meld.exe "$LOCAL" "$REMOTE"
+
