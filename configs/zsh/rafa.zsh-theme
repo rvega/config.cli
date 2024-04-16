@@ -5,7 +5,7 @@ git_branch() {
   fi
 }
 
-PROMPT='%{$fg[green]%}dev:%p %{$fg[green]%}%c$(git_branch) %{$fg[green]%}> %{$reset_color%}'
+PROMPT='%{$fg[green]%}%p%{$fg[green]%}%c$(git_branch) %{$fg[green]%}> %{$reset_color%}'
 
 # PROMPT="%{$fg[green]%}%p %{$fg[green]%}%c > %{$reset_color%}"
 

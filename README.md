@@ -30,22 +30,11 @@ Delete the rvg_devel_img image and the rvg_devel container, or (dangerous) run `
 
 1. Clone this repo to /home/rvg/Config
 
-1. If no normal user was created during install, run the following, log out, log as rvg user.
-   ```
-   cd scripts
-   ./create_user.sh
-   ```
+1. If no normal user was created during install, see `scripts/create_user.sh`. Log in as a normal (not root) user.
 
 1. Run
    ```
    cd scripts
    ./istall.sh
    ```
-
-
-# TODO
-
-* [ ] Clipboard integration.
-
-
 
