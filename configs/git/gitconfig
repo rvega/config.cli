@@ -30,7 +30,7 @@
   untracked = cyan
 
 [core]
-  editor = vim
+  editor = v
 
 [alias]
   a = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
