@@ -22,6 +22,7 @@ require("onedarkpro").setup({
     colors = {
         -- bg = "#0C0C0C",
         bg = "#151515",
+        fg = "#CCCCCC",
     },
     options = {
         -- transparency = true
@@ -76,9 +77,23 @@ lspconfig.marksman.setup{}
 -- needs to be within a .git directory, or within a composer.json directory
 lspconfig.intelephense.setup{}
 
+-- -- QML
+-- -- https://github.com/qt/qtdeclarative
+-- -- sudo apt-get install qt6-declarative-dev
+-- lspconfig.qmlls.setup({
+--     cmd = {"/usr/lib/qt6/bin/qmlls"}
+-- })
+
+ -- -- QML
+ -- lspconfig.qml_lsp.setup({
+ --     cmd = {"/mnt/c/Users/vegara/Rafa/Repos/qml-lsp/qml-lsp-static"}
+-- })
+
+
 -- PYTHON
 -- pacman -S jedi-language-server
-lspconfig.jedi_language_server.setup{}
+-- lspconfig.jedi_language_server.setup{}
+
 
 -- XML
 -- pacman -S lemminx

@@ -56,6 +56,7 @@ augroup END
 augroup cpp_ft
   autocmd!
   autocmd FileType cpp :setlocal foldmethod=syntax
+  autocmd FileType cpp :setlocal tabstop=4  " Use actual tabs for indentation
 augroup END
 
 augroup php_ft
@@ -335,14 +336,54 @@ au! BufEnter *.html let b:fswitchdst = 'ts' | let b:fswitchlocs = './'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Compile using cmake
 
+"C:/Users/vegara/Rafa/Repos/ble_playground/main.cpp|16 col 5| error: unknown type name 'lll'" 
+
+
 packadd cmake4vim
 
 " let g:cmake_build_dir="Build/Debug"
-let g:cmake_build_dir="build"
+let g:cmake_build_dir="build/Desktop_Qt_6_7_0_MinGW_64_bit-Debug"
+" let g:cmake_build_dir="C:\\Users\\vegara\\Rafa\\Repos\\ble_playground\\build\\Desktop_Qt_6_7_0_MinGW_64_bit-Debug"
+" let g:cmake_build_dir="build/Android_Qt_6_7_0_Clang_armeabi_v7a-Debug"
 let g:cmake_project_generator="Ninja"
+let g:cmake_executable="/mnt/c/Qt/Tools/CMake_64/bin/cmake.exe"
+
+"
+
+" /mnt/c/Qt/Tools/CMake_64/bin/cmake.exe --build 
+
+
+
 " g:cmake_build_executor_height=5
 " map <leader>b :CMakeBuild<cr>:copen<cr>
 map <leader>b :CMakeBuild<cr>
+
+" When there are build errors while compiling with cmake, error messages in
+" the quickfix window will look like the line below:
+" 
+" C:/Users/vegara/Rafa/Repos/ble_playground/main.cpp|16 col 5| error: unknown type name 'lll'
+"
+" This function converts that to a path like /mnt/c/Users/... and opens the file.
+function! OpenWithWindowsPath() abort
+    try 
+        let l:line = getline('.')
+        let l:parts = split(line, "|")
+
+        let l:windowsPath = l:parts[0]
+        let l:wslPath = system('wslpath -a "'. l:windowsPath .'"')
+
+        let l:lineCol = l:parts[1]
+        let l:line = split(l:lineCol, " col ")[0]
+
+        wincmd k
+        execute "edit +" . l:line . " " . l:wslPath
+    catch
+        " nop
+    endtry
+endfunction
+
+" Do this when hitting enter in the quickfix window:
+autocmd FileType qf nnoremap <buffer> <cr> :call OpenWithWindowsPath()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Line wrapping and vertical movement as a word processor.
