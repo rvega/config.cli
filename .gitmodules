@@ -99,3 +99,6 @@
 [submodule "vendor/fzf"]
 	path = vendor/fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-qml"]
+	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-qml
+	url = https://github.com/peterhoeg/vim-qml

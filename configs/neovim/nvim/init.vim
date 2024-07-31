@@ -77,6 +77,7 @@ packadd vim-cpp                " CPP
 packadd vim-javascript-syntax  " Javascript
 packadd vim-xml                " XML
 packadd php.vim                " php
+packadd vim-qml                " QML
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

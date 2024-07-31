@@ -45,6 +45,7 @@ setopt HIST_IGNORE_ALL_DUPS
 
 # Colors for ls command. https://gist.github.com/thomd/7667642
 LS_COLORS="ow=1;34:di=1;34"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 ###################################################################
 
