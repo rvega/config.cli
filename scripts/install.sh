@@ -2,6 +2,7 @@
 
 sudo apt-get update
 sudo apt-get install -y git
+git submodule update --init --recursive
 
 cd ../configs/zsh
 ./install.sh

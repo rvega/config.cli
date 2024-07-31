@@ -30,9 +30,7 @@
 	url = https://github.com/kentaro/vim-textobj-function-php
 [submodule "configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-indented-paragraph"]
 	path = configs/neovim/nvim/pack/rvg_plugins/opt/vim-textobj-indented-paragraph
-	url = git@github.com:rvega/vim-textobj-indented-paragraph.git
-[submodule "vim-textobj-indented-paragraph"]
-	url = git@github.com:rvega/vim-textobj-indented-paragraph.git
+	url = https://github.com/rvega/vim-textobj-indented-paragraph.git
 [submodule "configs/neovim/nvim/pack/rvg_plugins/opt/undotree"]
 	path = configs/neovim/nvim/pack/rvg_plugins/opt/undotree
 	url = https://github.com/mbbill/undotree

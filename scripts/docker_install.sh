@@ -1,7 +1,8 @@
 #! /bin/bash
 
-docker build .. -t rvega_devel_img
+docker build --platform linux/amd64 .. -t rvega_devel_img
 docker run -dit \
+    --platform linux/amd64 \
     --name rvega_devel \
     --hostname rvg_devel \
     --user rvg \
