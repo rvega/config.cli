@@ -36,19 +36,44 @@
   a = "!git ls-files -m -o --exclude-standard | fzf --print0 -m | xargs -0 -t -o git add"
   d = difftool
 
-;[init]
+[init]
+    defaultBranch = main
 ;  templatedir = ~/Config/git/gittemplate
 
 [pull]
   rebase = false
 
 [diff]
-    tool = meld
-    ;tool = vimdiff
+    tool = fm
 
 [difftool]
     prompt = false
 
+[difftool "fm"]
+    cmd = /Applications/Xcode.app/Contents/Applications/FileMerge.app/Contents/MacOS/FileMerge -left \"$LOCAL\" -right \"$REMOTE\"
+    path =
+
 [difftool "meld"]
-    cmd = /mnt/c/Program\\ Files/Meld/Meld.exe "$LOCAL" "$REMOTE"
+    ; cmd = /mnt/c/Program\\ Files/Meld/Meld.exe "$LOCAL" "$REMOTE"
+    trustExitCode = true
+    cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
+
+[difftool "opendiff"]
+    cmd = /usr/bin/opendiff \"$LOCAL\" \"$REMOTE\" -merge \"$MERGED\" | cat
+
+[merge]
+    tool = vimdiff
+    conflictstyle = diff3
+
+[mergetool "vimdiff"]
+    path = nvim
+
+[mergetool "meld"]
+    trustExitCode = true
+    cmd = open -W -a Meld --args --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output=\"$MERGED\"
+
+
+
+
+
 

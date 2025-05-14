@@ -1,15 +1,93 @@
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Load some plugins manually
+" Install plugins
 " 
 
-" See lua/init.lua script. This is where the integration with language
-" servers is configured. (semantic completions, fixers, linters, etc.)
-packadd nvim-lspconfig
+call plug#begin()
+
+" Color scheme
+Plug 'olimorris/onedarkpro.nvim'
 
 " Adds actions for adding surronds: ys, deleting: ds, changing: ds, etc.
-packadd vim-surround
-packadd vim-repeat
+Plug 'tpope/vim-surround'
+
+" Makes more stuff (like surround) repeatable with "."
+Plug 'tpope/vim-repeat'
+
+" Seamless navigation between tmux panes and vim splits.
+Plug 'christoomey/vim-tmux-navigator'
+
+" Fuzzy finder, file picker, etc.
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+
+" Undo Tree
+Plug 'simnalamburt/vim-mundo'
+
+" Distraction free mode  
+" :Goyo
+Plug 'junegunn/goyo.vim'
+
+" Switch between h and c files
+Plug 'derekwyatt/vim-fswitch'
+
+" markdown and wiki files.
+" <leader>ww
+Plug 'plasticboy/vim-markdown'
+Plug 'lervag/wiki.vim'
+Plug 'lervag/lists.vim'
+
+" :Bdelete is better than :bdelete because it does not mess up splits /
+" layouts. See https://github.com/moll/vim-bbye
+Plug 'moll/vim-bbye'
+
+" Align columns ga
+Plug 'junegunn/vim-easy-align'
+
+" save files with sudo
+Plug 'lambdalisue/suda.vim'
+
+
+""""
+" Better syntax highlighting.
+"
+" Look for other languages here https://github.com/sheerun/vim-polyglot
+Plug 'justinmk/vim-syntax-extra' " For C
+Plug 'vim-jp/vim-cpp' " CPP
+Plug 'jelera/vim-javascript-syntax' " Javascript
+Plug 'amadeus/vim-xml' " XML
+Plug 'StanAngeloff/php.vim' "php
+Plug 'git@github.com:peterhoeg/vim-qml.git' "QML
+Plug 'vim-python/python-syntax'
+
+""""
+" Text objects.
+"
+" Allow for user defined text objects. See here if more text objects are needed
+" https://github.com/kana/vim-textobj-user/wiki
+Plug 'kana/vim-textobj-user'
+
+" gb for text object last pasted text.
+" Nice with comments or indents, e.g. indent pasted text "=gb"
+Plug 'saaguero/vim-textobj-pastedtext'
+
+" Better paragraphs. p for paragraphs, { and } for motions.
+Plug 'rvega/vim-textobj-indented-paragraph'
+
+" f for functions in C, Java and Vimscript. May be extended for more languages.
+Plug 'kana/vim-textobj-function'
+Plug 'thinca/vim-textobj-function-javascript' " Adds JS support
+Plug 'bps/vim-textobj-python'                 " Adds python support
+Plug 'kentaro/vim-textobj-function-php'       " Adds php
+
+call plug#end()
+
+
+" TODO!
+" See lua/init.lua script. This is where the integration with language
+" servers is configured. (semantic completions, fixers, linters, etc.)
+" packadd nvim-lspconfig
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config
@@ -18,8 +96,8 @@ set encoding=utf-8
 filetype on
 filetype plugin on
 filetype indent on
-set relativenumber
-set number
+" set relativenumber
+" set number
 set ignorecase 
 set smartcase
 set shiftwidth=4
@@ -29,15 +107,30 @@ set clipboard^=unnamed,unnamedplus
 set linebreak
 set breakindent
 set showbreak=>>
-set foldmethod=indent
-set foldlevelstart=99
-set textwidth=0 wrapmargin=0
+set textwidth=0 
+set wrapmargin=0
 set hidden
 set scrolloff=10
 set wildmenu
 set wildmode=list:longest
 set laststatus=4  " Do not show status line, use horizontal line as pane separator instead.
 set signcolumn=yes
+set exrc
+
+set foldmethod=indent
+set foldlevelstart=99
+set foldminlines=0
+function! MyFoldText()
+    " blanks is the spaces in the beggining of the first folded line, to keep 
+    " indentation when folded.
+    let nl = v:foldend - v:foldstart + 1
+    let firstline = getline(v:foldstart)
+    let blanks = substitute(firstline, '\(^ *\).*', '\1', 'g')
+    let txt = '  ' . blanks . nl . ' folded lines. '
+    return txt
+endfunction
+set foldtext=MyFoldText()
+
 
 
 " For motions, underscore separates words.
@@ -49,47 +142,32 @@ set signcolumn=yes
 " Settings particular to a file type 
 
 augroup c_ft
-  autocmd!
-  " autocmd BufEnter *.h :setlocal filetype=c
+    autocmd!
+    " autocmd BufEnter *.h :setlocal filetype=c
 augroup END
 
 augroup cpp_ft
-  autocmd!
-  autocmd FileType cpp :setlocal foldmethod=syntax
+    autocmd!
+    autocmd FileType cpp :setlocal foldmethod=syntax
 augroup END
 
 augroup php_ft
-  autocmd!
-  autocmd FileType php :setlocal softtabstop=4
-  autocmd FileType php :setlocal shiftwidth=4
-  autocmd FileType php :setlocal tabstop=4
+    autocmd!
+    autocmd FileType php :setlocal softtabstop=4
+    autocmd FileType php :setlocal shiftwidth=4
+    autocmd FileType php :setlocal tabstop=4
 augroup END
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Syntax Highlighting.
-" 
-
-" Better syntax highlighting. Look for other languages here
-" https://github.com/sheerun/vim-polyglot
-
-packadd vim-syntax-extra       " For C
-packadd vim-cpp                " CPP
-packadd vim-javascript-syntax  " Javascript
-packadd vim-xml                " XML
-packadd php.vim                " php
-packadd vim-qml                " QML
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
 " 
 
-" " Training wheels: Don't use backspace repeatedly, use <c-w> or <c-h>
-" " inoremap <backspace> <nop>
-" nnoremap jj <nop>
-" nnoremap kk <nop>
-" nnoremap hh <nop>
-" nnoremap ll <nop>
+" Training wheels: Don't use backspace repeatedly, use <c-w> or <c-h>
+" inoremap <backspace> <nop>
+nnoremap jj <nop>
+nnoremap kk <nop>
+nnoremap hh <nop>
+nnoremap ll <nop>
 
 " Use spacebar as leader
 nnoremap <space> <nop>
@@ -129,8 +207,6 @@ inoremap [<space> [ ]<esc>hi
 " vnoremap : q:i
 
 " Navigate open buffers
-packadd vim-bbye  " :Bdelete is better than :bdelete 
-                  "  See https://github.com/moll/vim-bbye
 nnoremap <leader>n :bn<cr>
 nnoremap <leader>N :bp<cr>
 nnoremap <leader>l :Buffers<cr>
@@ -183,6 +259,11 @@ nnoremap <leader>[ f-xxi['<esc>ea']<esc>
 " Close html tag.
 nnoremap <leader>/ a</<c-x><c-o><esc>==
 
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ctags
@@ -217,39 +298,19 @@ au InsertLeave * set ignorecase
 
 set completeopt=menu,longest
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Snippets. Ultisnips
 " 
 
-packadd ultisnips
-packadd vim-snippets
-
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-p>"
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Text objects
- 
-" Allows for user defined text objects. See here if more text objects 
-" are needed https://github.com/kana/vim-textobj-user/wiki
-packadd vim-textobj-user
-
-" gb for text object last pasted text. Nice with comments or indents, 
-" e.g: indent pasted text "=gb"
-packadd vim-textobj-pastedtext
-
-" f for functions in C, Java and Vimscript. Can be extended for 
-" more languages.
-packadd vim-textobj-function
-packadd vim-textobj-function-javascript  " Adds JS support
-packadd vim-textobj-python               " Adds python support
-packadd vim-textobj-function-php         " Adds php
-
-" Better paragraphs. p for paragraphs, { and } for motions.
-" Note that I'm using my fork of this plugin. I did that 
-" because it's the only way to change mappings.
-packadd vim-textobj-indented-paragraph
+"call minpac#add('SirVer/ultisnips')
+"call minpac#add('honza/vim-snippets')
+" packadd ultisnips
+" packadd vim-snippets
+" 
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-n>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 
 
 
@@ -257,31 +318,19 @@ packadd vim-textobj-indented-paragraph
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Undo history
 "
-
-packadd undotree
-
 set undofile
 autocmd BufWritePre /tmp/* setlocal noundofile
-nnoremap <leader>z :UndotreeToggle<cr>
-
-"" Another option is vim-undo (commented out below). 
-"" It has better search in history of file but not working 
-"" last time I checked.
-""
-""   call minpac#add('simnalamburt/vim-mundo')
-""   autocmd BufWritePre /tmp/* setlocal noundofile
-""   nnoremap <leader>z :MundoToggle<cr>
-""   let g:mundo_prefer_python3 = 1
-""   let g:mundo_auto_preview_delay = 1000
-
+nnoremap <leader>z :MundoToggle<cr>
+let g:mundo_auto_preview_delay = 1000
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fuzzy Finder
 "
-" Requires the fzf binary to be available in PATH. See zsh config.
+" Requires the fzf binary to be available in PATH.
 "
-" TODO: Explore! There are a lot of interesting commands in this 
-" plugin. https://github.com/junegunn/fzf.vim
+" TODO: * Explore more commands. https://github.com/junegunn/fzf.vim
+"       * Consider this other plugin, seems more integrated with lsp 
+"         and neovim: https://github.com/ibhagwan/fzf-lua
 "
 " Use these commands!!!
 " <leader>t or :GFiles for opening files in repo. see below.
@@ -289,9 +338,6 @@ nnoremap <leader>z :UndotreeToggle<cr>
 " <leader>r or :Rg to search in whole project. Respects ignore files
 " :Tags
 " :Snippets
-
-packadd fzf
-packadd fzf.vim
 
 " nmap <leader><tab> <plug>(fzf-maps-n)
 " xmap <leader><tab> <plug>(fzf-maps-x)
@@ -322,9 +368,7 @@ nmap <leader>R :RipGrepAll
 " Jump between c and h (companion) files.
 " 
 
-packadd vim-fswitch
 nnoremap <leader>h :call FSwitch('%', '')<cr>
-
 "autocmd BufEnter *.c let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|'
 
 " ts and html files, useful for angular projects
@@ -335,14 +379,14 @@ au! BufEnter *.html let b:fswitchdst = 'ts' | let b:fswitchlocs = './'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Compile using cmake
 
-packadd cmake4vim
-
-" let g:cmake_build_dir="Build/Debug"
-let g:cmake_build_dir="build"
-let g:cmake_project_generator="Ninja"
-" g:cmake_build_executor_height=5
-" map <leader>b :CMakeBuild<cr>:copen<cr>
-map <leader>b :CMakeBuild<cr>
+"  call minpac#add('ilyachur/cmake4vim')
+"  
+"  " let g:cmake_build_dir="Build/Debug"
+"  let g:cmake_build_dir="build"
+"  let g:cmake_project_generator="Ninja"
+"  " g:cmake_build_executor_height=5
+"  " map <leader>b :CMakeBuild<cr>:copen<cr>
+"  map <leader>b :CMakeBuild<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Line wrapping and vertical movement as a word processor.
@@ -362,23 +406,17 @@ endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" WIKI and markdown files
-"" Wiki.vim keeps to-do lists, notes, etc.
-"" <leader>ww
 
-packadd vim-markdown
-packadd wiki.vim
-packadd lists.vim
+let g:wiki_root = '/Users/Rafa/wiki'
+let g:wiki_link_target_type = 'wiki'
+let g:wiki_filetypes = ['wiki']
 
-let g:wiki_root = '/home/rvg/wiki'
-let g:wiki_link_target_type = 'md'
-let g:wiki_filetypes = ['md']
+let g:markdown_folding = 1
 
 " Enable lists in markdown files.
 let g:lists_filetypes = ['markdown', 'md', 'wiki']
-
-" <leader>X to toggle to-do items in bulleted lists. <c-s> is default
 let g:lists_maps_default_override = {
-      \ '<plug>(lists-toggle)' : '<leader>X',
+      \ '<plug>(lists-toggle)' : '<leader>y',
 \}
 
 function! MarkdownConfig()
@@ -397,6 +435,13 @@ augroup markdfown_ft
   autocmd BufEnter *.wiki :setlocal filetype=markdown
 augroup END
 
+" Open file links with xdg-open
+" let g:wiki_file_open = 'WikiFileOpen'
+" function! WikiFileOpen(...) abort dict
+"   silent execute '!xdg-open' fnameescape(self.path) '&'
+"   return 1
+" endfunction
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Toggle Comments.
 "
@@ -404,40 +449,34 @@ augroup END
 " e.g: "gcp" toggles comments for a paragraph
 " In visual mode, select and then do "gc"
 
-packadd vim-commentary
-
 augroup c_ftft
-   autocmd!
-   autocmd FileType c :setlocal commentstring=//\ %s
-   autocmd FileType cpp :setlocal commentstring=//\ %s
+    autocmd!
+    autocmd FileType c :setlocal commentstring=//\ %s
+    autocmd FileType cpp :setlocal commentstring=//\ %s
 augroup END
 
 augroup php_ftft
-   autocmd!
-   autocmd FileType php :setlocal commentstring=//\ %s
+    autocmd!
+    autocmd FileType php :setlocal commentstring=//\ %s
 augroup END
 
 augroup js_ftft
-   autocmd!
-   autocmd FileType typescript :setlocal commentstring=//\ %s
-   autocmd FileType js :setlocal commentstring=//\ %s
+    autocmd!
+    autocmd FileType typescript :setlocal commentstring=//\ %s
+    autocmd FileType js :setlocal commentstring=//\ %s
 augroup END
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ask for sudo password
 " 
-
-packadd suda.vim
-"cnoremap ee e suda://%
+"cnoremap ee e uda://%
 cnoremap ww w suda://%
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Integration with tmux
 " 
-
-packadd vim-tmux-navigator
 
 let g:tmux_navigator_no_mappings = 2
 nnoremap <silent> <c-a>h :TmuxNavigateLeft<cr>
@@ -456,23 +495,27 @@ nnoremap <silent> <c-a>l :TmuxNavigateRight<cr>
 
 " call minpac#add('roxma/vim-tmux-clipboard')
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Clipboard integration in WSL
-let g:clipboard = {
-            \   'name': 'WslClipboard',
-            \   'copy': {
-            \      '+': 'clip.exe',
-            \      '*': 'clip.exe',
-            \    },
-            \   'paste': {
-            \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-            \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-            \   },
-            \   'cache_enabled': 0,
-            \ }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Clipboard integration in WSL
+"let g:clipboard = {
+"            \   'name': 'WslClipboard',
+"            \   'copy': {
+"            \      '+': 'clip.exe',
+"            \      '*': 'clip.exe',
+"            \    },
+"            \   'paste': {
+"            \      '+': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+"            \      '*': 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+"            \   },
+"            \   'cache_enabled': 0,
+"            \ }
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Spelling
+
+" Better spelling corrector
+" call minpac#add('kamykn/spelunker.vim')
 
 " See mappings in https://github.com/kamykn/spelunker.vim
 " Zl -> list correction
@@ -481,30 +524,26 @@ let g:clipboard = {
 " ZP -> Jump to previous error
 
 " Enable by default only in php files.
-let g:spelunker_disable_auto_group= 1
-augroup spelunker
-  autocmd!
-  autocmd BufWinEnter,BufWritePost *.php call spelunker#check()
-augroup END
+" let g:spelunker_disable_auto_group= 1
+" augroup spelunker
+"   autocmd!
+"   autocmd BufWinEnter,BufWritePost *.php call spelunker#check()
+" augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "  Macros
 " 
 
 " Fix Black rooster audio style doxygen code blocks.
-let @p = '^v%:s/\t//gv%kj:s/^/ * /gxwlh%XXv%>fdd2w=ip' 
+" let @p = '^v%:s/\t//gv%kj:s/^/ * /gxwlh%XXv%>fdd2w=ip' 
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
-" 
-" More color config is in init.lua. 
-
-packadd onedarkpro
-
-set termguicolors
-syntax enable
-set background=dark
+" Config is in init.lua. 
+ set termguicolors
+ syntax enable
+ set background=dark
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -512,14 +551,16 @@ set background=dark
 " :packadd vdebug to enable the plugin and then <f5> to listen for
 " connections. You'll need to change mappings below for projects that use
 " remote debugger (docker containers for example).
-
 " packadd vdebug
 
-let g:vdebug_options = {
-\   'path_maps': {
-\        "/var/1rpm/source/source": "/home/Rafa/Projects/Active/OneRPM/repos/onerpm-legacy/source",
-\        "/var/www/": "/home/Rafa/Projects/Active/OneRPM/repos/onerpm-api",
-\   },
-\}
+  " call minpac#add('vim-vdebug/vdebug', {'type': 'opt'}) 
+
+" let g:vdebug_options = {
+" \   'path_maps': {
+" \        "/var/1rpm/source/source": "/home/Rafa/Projects/Active/OneRPM/repos/onerpm-legacy/source",
+" \        "/var/www/": "/home/Rafa/Projects/Active/OneRPM/repos/onerpm-api",
+" \   },
+" \}
+
 
 lua require('init')

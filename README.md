@@ -1,40 +1,28 @@
-# Command line devel environment based on Ubuntu 24.04 
+# Command line devel environment.
 
-This is my command line "IDE". It's zsh, tmux and nvim with custom configs.This is meant to be ran on a command-line only environment such as a docker container, WSL2 on windows, or a Linux install (virtual or phisical machine).
+This is my command line "IDE". It's zsh, tmux and nvim with custom configs. This is meant to be run on a unixy terminal emulator. Tested on Arch Linux, MacOs ans Arch Linux on WSL2 on Windows 11. 
 
 ## Install
 
-### On docker.
+### On MacOs.
 
-1. Install docker
+1. Install [homebrew](https://brew.sh). 
 
-1. Run this:
-   ```
-   cd scripts
-   ./docker_install.sh 
-   ./docker_start.sh   # Will start zsh in a docker container
-   cd Config/scripts
-   ./install.sh
-   exit
-   ./docker_start.sh
-   ```
+1. Clone this repo to ~/Cli
 
-### Uninstall 
+1. Run `~/Cli/scripts/install_macos.sh`
 
-Delete the rvg_devel_img image and the rvg_devel container, or (dangerous) run `cd scripts && ./docker_uninstall.sh` 
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+git clone git@github.com:rvega/config.cli.git ~/Cli
+cd ~/scripts
+./install_macos.sh
+```
+
+## On Arch Linux (WSL2, virtual machine, or physical machine).
+
+1. To do.
 
 
-## On Ubuntu (WSL2, virtual machine, or physical machine).
 
-1. Install ubuntu 24.04 and make sure you can login as root.
-
-1. Clone this repo to /home/rvg/Config
-
-1. If no normal user was created during install, see `scripts/create_user.sh`. Log in as a normal (not root) user.
-
-1. Run
-   ```
-   cd scripts
-   ./istall.sh
-   ```
 

@@ -1,5 +1,5 @@
 # Load zgen
-source "${HOME}/Config/configs/zsh/zgen/zgen.zsh"
+source "${HOME}/Cli/configs/zsh/zgen/zgen.zsh"
 
 # check if there's no init.zsh script
 if ! zgen saved; then
@@ -14,7 +14,7 @@ if ! zgen saved; then
     # zgen load ytakahashi/igit
 
     # theme
-    zgen load ${HOME}/Config/configs/zsh/rafa.zsh-theme
+    zgen load ${HOME}/Cli/configs/zsh/rafa.zsh-theme
 
     # save all to init script
     zgen save
@@ -56,7 +56,7 @@ export FZF_COMPLETION_TRIGGER="**"
 export FZF_DEFAULT_COMMAND='rg --files --follow --hidden --color=never 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-bindkey "ç" fzf-cd-widget        # Alt + c in Macos.
+bindkey "ç" fzf-cd-widget        # Alt+c in Macos.
 
 ###################################################################
 
@@ -70,24 +70,25 @@ bindkey "ç" fzf-cd-widget        # Alt + c in Macos.
 # SNAP_BIN="/snap/bin" 
 # LOCAL_BIN="${HOME}/.local/bin" 
 # COMPOSER_BIN="${HOME}/.config/composer/vendor/bin"
-PIP_BIN="/home/rvg/.local/bin"
+# PIP_BIN="/home/rvg/.local/bin"
 export PATH=$PATH:${SNAP_BIN}:${LOCAL_BIN}:${BUILDROOT_BIN}:${COMPOSER_BIN}:${PIP_BIN}
 
 # Training wheels for <alt>-c
-# alias cd="echo 'Use <alt>-c instead of cd!' && cd "
+alias cd="echo 'Use <alt>-c instead of cd!' && cd "
 
 # clear 
 alias c="clear"
 
 # lf file manager
 alias lf1="=lf"
-alias lf="tmux-load ~/Config/lf/tmux-lf.json"
+alias lf="tmux-load ~/Cli/lf/tmux-lf.json"
 
 # Alias for cmake in debug and ninja mode
 alias cmake_ninja="cmake -G Ninja -DCMAKE_BUILD_TYPE=debug"
 
-# send to trash instead of rm (need to install trash-cli from aur)
-alias rm="echo \"Don't use rm, use trash instead.\""
+# send to trash instead of rm 
+alias rm="echo \"Don't use rm, use del.\n\""
+alias del=trash
 
 # Force ninja to output colors
 export CLICOLOR_FORCE=1
@@ -98,28 +99,16 @@ export CLICOLOR_FORCE=1
 # Macos weirdness of open command within tmux.
 alias open='reattach-to-user-namespace open'
 
-# Warning for pip
-# alias pip='echo "use pip with --user flag."'
-
-# Copy to "clipboard" and not "selection" from xclip command
-# alias xclip='xclip -selection clipboard'
-
-# Prevent sudo timeout when installing stuff with yay
-# alias yay='yay --sudoloop'
-
 # Render a markdown file to html, you need to `pacman -S python-grip`
 alias md2html='grip -b' # Preview server
 alias md2html_export='grip --export' # Actually export a html file
 
 # Set colors for shell
-# BASE16_SHELL="~/Config/zsh/base16-shell/scripts/base16-atelier-forest.sh"
+# BASE16_SHELL="~/Cli/zsh/base16-shell/scripts/base16-atelier-forest.sh"
 # [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 # Alias for du (disk usage)
 alias du='du -sk (*|.*) | sort -rn | awk "{\$1=\"\"; print \$0}" | xargs du -hs'
-
-## dcfldd is frendlier than dd
-## alias dd=dcfldd
 
 # ripgrep use smart case
 alias rg="rg -S"
@@ -159,10 +148,10 @@ alias ttt='tree -C | less'
 
 # Vim open on same window
 alias vim='echo "Just type v instead of vim"'
-alias v='~/Config/configs/neovim/open-with-neovim.sh'
+alias v='~/Cli/configs/neovim/open-with-neovim.sh'
 alias vv='=nvim'
 
-# Use vim for everything
+# Use nvim for everything
 export EDITOR="nvim"
 
 # Close session easily
@@ -174,24 +163,6 @@ alias tmux="tmux -2 -u attach || tmux -2 -u new"
 alias tmux-save="tmuxp freeze"
 alias tmux-load="tmuxp load"
 
-# Nethog
-# alias nethogs="sudo nethogs wlp5s0"
-
-# Mount writable by users
-# alias mountuser="sudo mount -o gid=storage,fmask=113,dmask=002"
-
-# Use pigz instead of gzip
-# alias gzip=pigz
-
-# VI File Manager
-# alias vifm='vifm .'
-
-# I keep typing gs by mistake.
-# alias gs='echo "Type =gs if you want to use ghostscript"'
-
-# Fire up the OneRPM devel environment.
-# alias onerpmdevel='cd ~/OneRPM/repos &&  print -n -- "\e]2; OneRPM \a" && tmux-load tmux.json'
-
 # Do not line wrap when using less
 export LESS=-RS
 
@@ -199,43 +170,6 @@ export LESS=-RS
 export NUMCPUS=10
 export MAKEFLAGS="-j$((NUMCPUS))"
 
-
 # When using pipenv, install dependencies in project dir
 export PIPENV_VENV_IN_PROJECT=1
-
-# Prevent ctrl+s to do that weird thing it does
-# http://raamdev.com/2007/recovering-from-ctrls-in-putty/
-# stty ixany
-# stty ixoff -ixon
-
-# Node version manager
-# source /usr/share/nvm/init-nvm.sh
-
-# For automatic version switching with .nvmrc files in project directories.
-# https://github.com/nvm-sh/nvm/blob/master/README.md#installing-and-updating
-# autoload -U add-zsh-hook
-# load-nvmrc() {
-#   local node_version="$(nvm version)"
-#   local nvmrc_path="$(nvm_find_nvmrc)"
-
-#   if [ -n "$nvmrc_path" ]; then
-#     local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-#     if [ "$nvmrc_node_version" = "N/A" ]; then
-#       nvm install
-#     elif [ "$nvmrc_node_version" != "$node_version" ]; then
-#       nvm use
-#     fi
-#   elif [ "$node_version" != "$(nvm version default)" ]; then
-#     echo "Reverting to nvm default version"
-#     nvm use default
-#   fi
-# }
-# add-zsh-hook chpwd load-nvmrc
-# load-nvmrc
-
-# Ruby version manager and rubygems 
-# export PATH="$HOME/.rvm/bin:$HOME/.gem/ruby/3.0.0/bin:$PATH"
-# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
-
 
