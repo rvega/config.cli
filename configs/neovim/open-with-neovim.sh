@@ -5,9 +5,14 @@
 # and now you have another named server
 [ -z "$VIM_SERVERNAME" ] && VIM_SERVERNAME="rvg_vim_server" 
 
+# If there's a filename as in `v filename.txt`
 if [ $# != 0 ]; then
-  NVR_BIN=nvr
-  NVIM_LISTEN_ADDRESS=/tmp/${VIM_SERVERNAME} ${NVR_BIN} -s --remote "$@"
+    NVR_BIN=nvr
+    NVIM_LISTEN_ADDRESS=/tmp/${VIM_SERVERNAME} ${NVR_BIN} -s --remote "$@"
 else 
-  NVIM_LISTEN_ADDRESS=/tmp/${VIM_SERVERNAME} nvim
+    if [ -e /tmp/${VIM_SERVERNAME} ]; then
+        nvim
+    else
+        NVIM_LISTEN_ADDRESS=/tmp/${VIM_SERVERNAME} nvim
+    fi
 fi

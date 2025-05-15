@@ -47,18 +47,23 @@ Plug 'junegunn/vim-easy-align'
 " save files with sudo
 Plug 'lambdalisue/suda.vim'
 
+" Language server protocol. look at init.lua. 
+Plug 'mason-org/mason.nvim'   " Installs external LSPs, formatters, etc.
+Plug 'neovim/nvim-lspconfig'  " This is neovim's LSP client. 
+Plug 'stevearc/conform.nvim'  " Sometimes LSP formatters are bad. This helps.
+
 
 """"
-" Better syntax highlighting.
-"
+" Better syntax highlighting
 " Look for other languages here https://github.com/sheerun/vim-polyglot
-Plug 'justinmk/vim-syntax-extra' " For C
-Plug 'vim-jp/vim-cpp' " CPP
-Plug 'jelera/vim-javascript-syntax' " Javascript
-Plug 'amadeus/vim-xml' " XML
-Plug 'StanAngeloff/php.vim' "php
-Plug 'git@github.com:peterhoeg/vim-qml.git' "QML
-Plug 'vim-python/python-syntax'
+" 
+Plug 'justinmk/vim-syntax-extra'            " For C
+Plug 'vim-jp/vim-cpp'                       " CPP
+Plug 'jelera/vim-javascript-syntax'         " Javascript
+Plug 'amadeus/vim-xml'                      " XML
+Plug 'StanAngeloff/php.vim'                 " php
+Plug 'git@github.com:peterhoeg/vim-qml.git' " QML
+Plug 'vim-python/python-syntax'             " Python
 
 """"
 " Text objects.
@@ -73,6 +78,9 @@ Plug 'saaguero/vim-textobj-pastedtext'
 
 " Better paragraphs. p for paragraphs, { and } for motions.
 Plug 'rvega/vim-textobj-indented-paragraph'
+
+" Block with same indentation i.
+Plug 'kana/vim-textobj-indent'
 
 " f for functions in C, Java and Vimscript. May be extended for more languages.
 Plug 'kana/vim-textobj-function'
@@ -96,7 +104,7 @@ set encoding=utf-8
 filetype on
 filetype plugin on
 filetype indent on
-" set relativenumber
+ set relativenumber
 " set number
 set ignorecase 
 set smartcase
@@ -131,12 +139,19 @@ function! MyFoldText()
 endfunction
 set foldtext=MyFoldText()
 
-
-
 " For motions, underscore separates words.
 " For searches with * underscore does not separate words.
 "set iskeyword-=_
 "nnoremap * :set iskeyword+=_<cr>*:set iskeyword-=_<cr>:set hlsearch<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors
+" Config is in init.lua. 
+ set termguicolors
+ syntax enable
+ set background=dark
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Settings particular to a file type 
@@ -148,7 +163,7 @@ augroup END
 
 augroup cpp_ft
     autocmd!
-    autocmd FileType cpp :setlocal foldmethod=syntax
+    "autocmd FileType cpp :setlocal foldmethod=syntax
 augroup END
 
 augroup php_ft
@@ -269,7 +284,7 @@ nmap ga <Plug>(EasyAlign)
 " Ctags
 "
 " Generate tags manually, externally, with something like 
-" `ctags --recurse -languages=c --languages=c++ ./` 
+" `ctags --recurse --languages=c --languages=c++ ./` 
 "
 " Or, see the automatic git hooks I set up for this in
 " ~/Config/git/gittemplate/hooks
@@ -281,6 +296,12 @@ nmap ga <Plug>(EasyAlign)
 " Look for tags file in file directory or current directory
 " set tags=./tags,tags,/home/vega/tags
 set tags=./tags,tags
+
+" If you want to index external libraries, for example Qt:
+"   cd ~/Qt/6.8.3/Src
+"   ctags --recurse --languages=c --languages=c++ ./
+set tags+=/Users/rvg/Qt/6.8.3/Src/tags
+
 
 nnoremap <silent> [t :tprevious<CR>
 nnoremap <silent> ]t :tnext<CR>
@@ -367,9 +388,14 @@ nmap <leader>R :RipGrepAll
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Jump between c and h (companion) files.
 " 
+" See :h fswitchlocs to add directories for finding sources.
 
 nnoremap <leader>h :call FSwitch('%', '')<cr>
+
 "autocmd BufEnter *.c let b:fswitchlocs = 'reg:/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|'
+
+" Where to find QT's cpp files.
+autocmd BufEnter *.h let b:fswitchlocs = '/src/include/,reg:|src|include/**|,ifrel:|/src/|../include|'
 
 " ts and html files, useful for angular projects
 au! BufEnter *.ts let b:fswitchdst = 'html' | let b:fswitchlocs = './'
@@ -536,14 +562,6 @@ nnoremap <silent> <c-a>l :TmuxNavigateRight<cr>
 
 " Fix Black rooster audio style doxygen code blocks.
 " let @p = '^v%:s/\t//gv%kj:s/^/ * /gxwlh%XXv%>fdd2w=ip' 
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Colors
-" Config is in init.lua. 
- set termguicolors
- syntax enable
- set background=dark
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

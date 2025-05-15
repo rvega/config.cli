@@ -74,7 +74,8 @@ bindkey "ç" fzf-cd-widget        # Alt+c in Macos.
 export PATH=$PATH:${SNAP_BIN}:${LOCAL_BIN}:${BUILDROOT_BIN}:${COMPOSER_BIN}:${PIP_BIN}
 
 # Training wheels for <alt>-c
-alias cd="echo 'Use <alt>-c instead of cd!' && cd "
+# alias cd="echo 'Use <alt>-c instead of cd!' && cd "
+# alias cd="echo 'Use <alt>-c instead of cd.'"
 
 # clear 
 alias c="clear"
