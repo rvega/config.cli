@@ -1,6 +1,6 @@
 #! /bin/bash
 
-brew install git zsh wget ripgrep fd macos-trash fzf tree tmux tmuxp gitui neovim-remote neovim clang-format python luarocks
+brew install git zsh wget ripgrep fd macos-trash fzf tree tmux tmuxp gitui neovim-remote neovim clang-format python luarocks lf 
 pip install --upgrade pynvim
 git submodule update --init --recursive
 
@@ -23,6 +23,10 @@ ln -fs ~/Cli/configs/neovim/clang-format ~/.clang-format
 ln -fs ~/Cli/configs/neovim/php-cs-fixer.php ~/.php-cs-fixer.php
 nvim --headless +PlugInstall +qa 2>/dev/null 
 nvim --headless +PlugInstall +qa	
+
+# lf file manager.
+mkdir -p ~/.config/lf
+ln -fs ~/Cli/configs/lf/lfrc ~/.config/lf/lfrc
 
 # Misc
 ln -fs ~/Cli/configs/clang-format ~/.clang-format

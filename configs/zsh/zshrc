@@ -82,7 +82,7 @@ alias c="clear"
 
 # lf file manager
 alias lf1="=lf"
-alias lf="tmux-load ~/Cli/lf/tmux-lf.json"
+alias lf="tmux-load ~/Cli/configs/lf/tmux-lf.json"
 
 # Alias for cmake in debug and ninja mode
 alias cmake_ninja="cmake -G Ninja -DCMAKE_BUILD_TYPE=debug"
