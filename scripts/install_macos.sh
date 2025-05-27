@@ -1,6 +1,6 @@
 #! /bin/bash
 
-brew install git zsh wget ripgrep fd macos-trash fzf tree tmux tmuxp gitui neovim-remote neovim clang-format python
+brew install git zsh wget ripgrep fd macos-trash fzf tree tmux tmuxp gitui neovim-remote neovim clang-format python luarocks
 pip install --upgrade pynvim
 git submodule update --init --recursive
 

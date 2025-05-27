@@ -18,8 +18,7 @@ Plug 'tpope/vim-repeat'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Fuzzy finder, file picker, etc.
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'ibhagwan/fzf-lua'
 
 " Undo Tree
 Plug 'simnalamburt/vim-mundo'
@@ -89,12 +88,6 @@ Plug 'bps/vim-textobj-python'                 " Adds python support
 Plug 'kentaro/vim-textobj-function-php'       " Adds php
 
 call plug#end()
-
-
-" TODO!
-" See lua/init.lua script. This is where the integration with language
-" servers is configured. (semantic completions, fixers, linters, etc.)
-" packadd nvim-lspconfig
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -207,7 +200,7 @@ noremap! å <c-w>
 noremap <leader>v <C-v>
 
 " Paste and indent 
-noremap <leader>p p=gb
+noremap p p=gb
 
 " expand {<cr> and {<space> in insert mode 
 inoremap {<cr> {<cr>}<esc>O
@@ -223,8 +216,8 @@ inoremap [<space> [ ]<esc>hi
 
 " Navigate open buffers
 nnoremap <leader>n :bn<cr>
-nnoremap <leader>N :bp<cr>
-nnoremap <leader>l :Buffers<cr>
+nnoremap <leader>p :bp<cr>
+"nnoremap <leader>l :Buffers<cr>  " Taken care by fzf-lua.
 nnoremap <leader>d :Bdelete<cr>
 
 " Close file / window
@@ -245,7 +238,7 @@ nnoremap [] k$][%?}<CR>
 
 " Increment and decrement numbers
 nnoremap <leader>a <c-a>
-nnoremap <leader>x <c-x>
+nnoremap <leader>x <c-x> 
 vnoremap g<leader>a g<c-a>
 vnoremap g<leader>x g<c-x>
 
@@ -334,8 +327,6 @@ set completeopt=menu,longest
 " let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 
 
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Undo history
 "
@@ -344,46 +335,40 @@ autocmd BufWritePre /tmp/* setlocal noundofile
 nnoremap <leader>z :MundoToggle<cr>
 let g:mundo_auto_preview_delay = 1000
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Fuzzy Finder
-"
-" Requires the fzf binary to be available in PATH.
-"
-" TODO: * Explore more commands. https://github.com/junegunn/fzf.vim
-"       * Consider this other plugin, seems more integrated with lsp 
-"         and neovim: https://github.com/ibhagwan/fzf-lua
-"
-" Use these commands!!!
-" <leader>t or :GFiles for opening files in repo. see below.
-" <leader>T or :Files for opening ALL files, even gitignored files.
-" <leader>r or :Rg to search in whole project. Respects ignore files
-" :Tags
-" :Snippets
 
-" nmap <leader><tab> <plug>(fzf-maps-n)
-" xmap <leader><tab> <plug>(fzf-maps-x)
-" omap <leader><tab> <plug>(fzf-maps-o)<Paste>
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-let g:fzf_preview_window = []
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Search Replace
+" Select fzf results with tab or with alt+a (and then enter), to put
+" them in the quickfix list.  Then, for example, replace all occurrences...
 
-"""""
-" This will respect .gitignore and .ignore files (use the .ignore file!)
-command! -bang RafaFiles call fzf#run(fzf#wrap({'source': "rg --files --follow --hidden --color=never", 'sink': 'e'}))
-nmap <leader>t :RafaFiles<cr> 
+" Replace in many files. Put stuff in the quicklist fzf and then do 
+"   :Replace search_str replace_str
+function! ReplaceFn( ... )
+    " With confirmation before replace: 
+    let cmd = 'cfdo %s/' . a:1 . '/' . a:2 . '/gc | update'
 
-" This NOT will respect .gitignore or .ignore files will show everything
-command! -bang RafaAllFiles call fzf#run(fzf#wrap({'source': "rg --files --follow --hidden --no-ignore --color=never --glob !.cache --glob !.git", 'sink': 'e'}))
-nmap <leader>T :RafaAllFiles<cr> 
+    " Without confirmation for each replace, just do it:
+    "let cmd = 'cfdo %s/' . a:1 . '/' . a:2 . '/g | update'
 
-" Search within files respecting .gitignore and .ignore
-command! -bang -nargs=* RipGrep call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
-nmap <leader>r :RipGrep 
+    execute cmd
+    "echo cmd
+    "cfdo %s/search_string/replace_string/g | update
+endfunction
+command! -bang -nargs=+ Replace call ReplaceFn(<f-args>)
+nmap <leader>re :Replace searchThis replaceWithThis 
 
-" Search within files without respecting .gitignore and .ignore
-command! -bang -nargs=* RipGrepAll call fzf#vim#grep("rg --no-ignore --glob !tags --glob !.git --glob !.cache --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1, fzf#vim#with_preview(), <bang>0)
-nmap <leader>R :RipGrepAll 
+" Or, without the fzf picker:
+" :SearchReplace search_this replace_with_this *.cpp\ *.h
+function! SearchReplaceFn( ... )
+    " With confirmation for each replace:
+    let cmd = 'vimgrep ' . a:1 . ' ' . a:3 .' | cfdo %s/' . a:1 . '/' . a:2 . '/gc | update'
 
+    " Without confirmation for each replace, just do it.
+    "let cmd = 'vimgrep ' . a:1 . ' ' . a:3 .' | cfdo %s/' . a:1 . '/' . a:2 . '/g | update'
+    execute cmd
+endfunction
+command! -bang -nargs=+ SearchReplace call SearchReplaceFn(<f-args>)
+nmap <leader>sr :SearchReplace searchThis replaceWithThis *.cpp\ *.h
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Jump between c and h (companion) files.
@@ -403,16 +388,65 @@ au! BufEnter *.html let b:fswitchdst = 'ts' | let b:fswitchlocs = './'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Compile using cmake
+" Compile stuff. 
+" When :make is called, the makeprg below is executed. 
+" Then, the error messages from the compiler are parsed by errorformat and put
+" in the quickfix. Sometimes, external processing of the error messages is
+" needed, for example, ansi2txt removes hard to parse error escape codes:
+"   let &makeprg = "cd build && ninja \\\| ansi2txt"
+"
+" There's a bunch of errorformats here: https://github.com/neomake/neomake/tree/584f882b9f991245374e7e7d7d1f78bae90b7a35/autoload/neomake/makers/ft
 
-"  call minpac#add('ilyachur/cmake4vim')
-"  
-"  " let g:cmake_build_dir="Build/Debug"
-"  let g:cmake_build_dir="build"
-"  let g:cmake_project_generator="Ninja"
-"  " g:cmake_build_executor_height=5
-"  " map <leader>b :CMakeBuild<cr>:copen<cr>
-"  map <leader>b :CMakeBuild<cr>
+
+"""
+" Todo: explore the following to parse and display messages as they are 
+" generated, asynchronously.
+" https://github.com/tpope/vim-dispatch
+" https://stackoverflow.com/questions/21592167/cmake-can-i-filter-compiler-output-through-another-program
+" https://phelipetls.github.io/posts/async-make-in-nvim-with-lua/
+
+"""
+" For clang + cmake:
+let &makeprg = "cd build/Qt_6_8_3_for_macOS-Debug && ninja \\\| ansi2txt"
+let &errorformat = ' 
+    \%f:%l:%c: %trror: %m,  
+    \%f:%l:%c: %tarning: %m, 
+    \%f:%l:%c: %tote: %m,  
+    \%f:%l:%c: %m,        
+    \clang++: %trror: %m,
+    \%+Eninja: build stopped: subcommand failed.,
+    \%-G%.%#'                " -G ignores everything else
+    "\%+Ininja: no work to do.,        
+
+" Open qflist after compiling
+function PostMake()
+    if len(getqflist()) == 0
+        call timer_start(2000, {-> execute("cclose", "")})
+        unsilent echo "Make Ok"
+    else
+        copen
+    endif
+endfunction
+autocmd QuickfixCmdPost * call PostMake()
+
+"nnoremap <leader>b :silent make<cr>
+nnoremap <leader>b :make<cr>
+
+" Post processing for error messages can also happen here. This is not
+" working. Here's an example that should work: 
+" https://github.com/tpope/vim-fireplace/blob/5e66509599de92550762cf2681338fc4cd1e71cf/plugin/fireplace.vim#L17-L20
+"function MakeErrorsPost()
+"   let qflist = getqflist()
+"   for i in qflist
+"       echo bufname(i.bufnr) 
+"       e main.cpp
+"       let i.filename = "main.cpp"  
+"   endfor
+"   call setqflist(qflist)
+"   copen
+"endfunction
+"autocmd QuickfixCmdPost * call MakeErrorsPost()
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Line wrapping and vertical movement as a word processor.
@@ -582,3 +616,4 @@ nnoremap <silent> <c-a>l :TmuxNavigateRight<cr>
 
 
 lua require('init')
+
