@@ -1,7 +1,7 @@
 #! /bin/bash
 
 brew install git zsh wget ripgrep fd macos-trash fzf tree tmux tmuxp gitui neovim-remote neovim clang-format python luarocks lf 
-pip install --upgrade pynvim
+# pip3 install --upgrade pynvim
 git submodule update --init --recursive
 
 # zsh
