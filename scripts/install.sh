@@ -1,7 +1,20 @@
 #! /bin/bash
 
-brew install git zsh wget ripgrep fd macos-trash fzf tree tmux tmuxp gitui neovim-remote neovim clang-format python luarocks lf 
-# pip3 install --upgrade pynvim
+if [[ "$OSTYPE" == "linux-gnu" ]]; then
+        sudo pacman -Syu
+        sudo pacman -S --needed base-devel
+        if ! command -v paru 2>&1 >/dev/null; then
+            git clone https://aur.archlinux.org/paru.git /tmp/paru
+            cd /tmp/paru
+            makepkg -si
+        fi
+	paru -S git zsh wget ripgrep fd trash-cli fzf tree tmux tmuxp gitui neovim-remote neovim clang python luarocks lf 
+        chsh -s /bin/zsh
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+        brew install git zsh wget ripgrep fd macos-trash fzf tree tmux tmuxp gitui neovim-remote neovim clang-format python luarocks lf 
+        pip install --upgrade pynvim
+fi
+	
 git submodule update --init --recursive
 
 # zsh

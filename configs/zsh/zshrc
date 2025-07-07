@@ -55,7 +55,7 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 export FZF_COMPLETION_TRIGGER="**"
 export FZF_DEFAULT_COMMAND='rg --files --follow --hidden --color=never 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 bindkey "ç" fzf-cd-widget        # Alt+c in Macos.
 
 ###################################################################
