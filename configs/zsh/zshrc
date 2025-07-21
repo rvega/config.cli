@@ -98,7 +98,10 @@ export CLICOLOR_FORCE=1
 # alias open='xdg-open'
 
 # Macos weirdness of open command within tmux.
-alias open='reattach-to-user-namespace open'
+# alias open='reattach-to-user-namespace open'
+
+# Windowz
+alias open='explorer.exe'
 
 # Render a markdown file to html, you need to `pacman -S python-grip`
 alias md2html='grip -b' # Preview server

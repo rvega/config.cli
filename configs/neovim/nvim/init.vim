@@ -157,6 +157,10 @@ augroup END
 augroup cpp_ft
     autocmd!
     "autocmd FileType cpp :setlocal foldmethod=syntax
+    autocmd FileType cpp :setlocal autoindent noexpandtab tabstop=4 shiftwidth=4
+
+    " Strip trailing whitespace when saving
+    autocmd FileType cpp autocmd BufWritePre * :call StripTrailingWhitespace()
 augroup END
 
 augroup php_ft
@@ -293,7 +297,7 @@ set tags=./tags,tags
 " If you want to index external libraries, for example Qt:
 "   cd ~/Qt/6.8.3/Src
 "   ctags --recurse --languages=c --languages=c++ ./
-set tags+=/Users/rvg/Qt/6.8.3/Src/tags
+"set tags+=/mnt/c/Qt/6.6.1/Src/tags
 
 
 nnoremap <silent> [t :tprevious<CR>
@@ -464,12 +468,26 @@ function! WordProcessorMode()
   map <buffer> 0 g0
 endfunction
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Strip white space
+
+" :call StripTrailingWhitespace()
+
+function! StripTrailingWhitespace()
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    call cursor(l, c)
+endfun
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" WIKI and markdown files
 
-let g:wiki_root = '/Users/Rafa/wiki'
+let g:wiki_root = '/mnt/c/Users/admin/Rafa/wiki'
 let g:wiki_link_target_type = 'wiki'
-let g:wiki_filetypes = ['wiki']
+let g:wiki_filetypes = ['md']
+"let g:wiki_filetypes = ['wiki']  " On macos, must be wiki, weird.
+"let g:wiki_root = '/Users/Rafa/wiki'
 
 let g:markdown_folding = 1
 
@@ -616,4 +634,3 @@ nnoremap <silent> <c-a>l :TmuxNavigateRight<cr>
 
 
 lua require('init')
-

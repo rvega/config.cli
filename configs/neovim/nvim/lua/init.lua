@@ -47,15 +47,18 @@ vim.keymap.set("n", "<leader>r", function()
     })
 end, { noremap = true })
 
+-- <leader>* search current word
+vim.keymap.set("n", "<leader>*", require("fzf-lua").grep_cword, { noremap = true })
+
 -- <leader>l buffers
 vim.keymap.set("n", "<leader>l", require("fzf-lua").buffers, { noremap = true })
 
--- <leader>m marks  '
-vim.keymap.set("n", "<leader>m", function()
+-- <leader>' marks  '
+vim.keymap.set("n", "<leader>'", function()
     require("fzf-lua").marks({
         marks = "[a-z,A-Z]",
         winopts = { preview = { hidden = false, layout = "vertical" } },
-    }) 
+    })
 end, { noremap = true })
 
 -- <c-x><x-f> complete file/dir
@@ -75,6 +78,10 @@ require("conform").formatters.qmlformat = {
 
 require("conform").formatters.stylua = {
     prepend_args = { "--indent-width", "4", "--indent-type", "Spaces" },
+}
+
+require("conform").formatters.clang_format = {
+    prepend_args = {"--style", "file", "--fallback-style", "file:/home/rvg/Cli/configs/clang-format"},
 }
 
 require("conform").setup({
