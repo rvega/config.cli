@@ -175,5 +175,10 @@ export NUMCPUS=10
 export MAKEFLAGS="-j$((NUMCPUS))"
 
 # When using pipenv, install dependencies in project dir
-export PIPENV_VENV_IN_PROJECT=1
+# export PIPENV_VENV_IN_PROJECT=1
 
+
+# PYENV stuff.
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
