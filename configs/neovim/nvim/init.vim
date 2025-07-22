@@ -21,7 +21,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ibhagwan/fzf-lua'
 
 " Undo Tree
-Plug 'simnalamburt/vim-mundo'
+Plug 'mbbill/undotree'
 
 " Distraction free mode  
 " :Goyo
@@ -44,7 +44,7 @@ Plug 'moll/vim-bbye'
 Plug 'junegunn/vim-easy-align'
 
 " save files with sudo
-Plug 'lambdalisue/suda.vim'
+"Plug 'lambdalisue/suda.vim'
 
 " Language server protocol. look at init.lua. 
 Plug 'mason-org/mason.nvim'   " Installs external LSPs, formatters, etc.
@@ -336,8 +336,7 @@ set completeopt=menu,longest
 "
 set undofile
 autocmd BufWritePre /tmp/* setlocal noundofile
-nnoremap <leader>z :MundoToggle<cr>
-let g:mundo_auto_preview_delay = 1000
+nnoremap <leader>z :UndotreeToggle<cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -483,8 +482,8 @@ endfun
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "" WIKI and markdown files
 
-let g:wiki_root = '/mnt/c/Users/admin/Rafa/wiki'
 let g:wiki_link_target_type = 'wiki'
+let g:wiki_root = 'c:/Users/admin/Rafa/wiki'
 let g:wiki_filetypes = ['md']
 "let g:wiki_filetypes = ['wiki']  " On macos, must be wiki, weird.
 "let g:wiki_root = '/Users/Rafa/wiki'

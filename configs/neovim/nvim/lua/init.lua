@@ -130,7 +130,8 @@ vim.lsp.enable("clangd")
 vim.lsp.enable("qmlls")
 
 vim.lsp.config("qmlls", {
-    cmd = { "/Users/rvg/Qt/6.8.3/macos/bin/qmlls" },
+    -- cmd = { "/Users/rvg/Qt/6.8.3/macos/bin/qmlls" },
+    cmd = { "C:\\Qt\\6.6.1\\msvc2019_64\\bin\\qmlls" },
 })
 
 vim.keymap.set("n", "<leader>e", vim.diagnostic.setloclist)
